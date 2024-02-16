@@ -15,7 +15,7 @@ function App() {
     handleAddFrontEnd(); // Perform front end calculation
 
     try {
-      const response = await fetch('http://localhost:5000/api/add', {
+      const response = await fetch('http://3.134.118.95/api/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,8 +60,11 @@ function App() {
               <img style={{height:'300px',width:'300px'}} src={ Logo }/>
             </div>
             <div className="col-md-9">
-              <h3>Leao Thring</h3>
-              "Here is my Profile "
+              <h3>Program Outlook</h3>
+              Webpage that includes input fields for two numbers. It perform
+              the addition of those two numbers and display the output in 2 ways. The first output
+              is calculated at the front end. The second output is calculated at the backend and
+              should send a response of addition to the frontend and render here
             </div>
           </div>
           <div className="row mb-3">
