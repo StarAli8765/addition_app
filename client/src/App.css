@@ -15,6 +15,15 @@
 .App-link {
   color: #61dafb;
 }
+.navbar-brand {
+  font-weight: bold;
+}
+
+.link{
+  font-weight: normal;
+}
+
+
 
 @keyframes App-logo-spin {
   from {
