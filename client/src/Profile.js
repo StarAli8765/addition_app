@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Avatar from './Avartar.jpg';
 import server_url from './config';
 
 function Profile() {
@@ -8,7 +9,7 @@ function Profile() {
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
   const [file, setFile] = useState(null);
-  const [imgFile, setImgFile] = useState('');
+  const [image, setImage] = useState('');
 
   const handleEdit = (event) => {
     setEdit(!edit);
@@ -24,60 +25,24 @@ function Profile() {
   }
 
   const handleFileChange = (event) => {
-    setFile(event.target.files);
-    console.log(file)
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files);
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
   }
 
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData();
-    if (file){
-      for (var x = 0; x < file.length; x++) {
-        console.log("added")
-        data.append('file', file[x])
-      }
-    }
-    const response = await fetch(server_url + '/api/upload', {
-      method: 'POST',
-      body: data,
-    });
-    console.log(response);
-    setImgFile(server_url + '/images/Avartar.jpg');
-    
-    const rep_info = await fetch(server_url + '/api/addinfo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name: name, bio: bio }),
-      });
-    console.log(rep_info);
-    window.location.reload();
+    event.preventDefault();    
   }
 
-  useEffect( () => {
-    async function fetchData(){
-      const response = await fetch(server_url + '/api/getinfo', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('Backend calculation failed');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setName(data.name);
-      setBio(data.bio);
-
-      setImgFile(server_url + '/images/Avartar.jpg');
-    }
-    console.log(server_url);
-    fetchData();
+  useEffect( () => {    
+    setImage(Avatar);
+    setName("Diego Costa");
+    setBio("webpage that includes input fields for two numbers. You need to perform\
+    the addition of those two numbers and display the output in 2 ways. The first output\
+    is calculated at the front end. The second output is calculated at the backend and\
+    should send a response of addition to the frontend and render here")
   }, []);
 
   return (
@@ -93,7 +58,7 @@ function Profile() {
           <form>
             <div className="row mb-3">
               <div className="col-md-4">
-                {imgFile ? <img style={{ maxHeight: '100%', maxWidth: '100%' }} src={imgFile} alt="img" /> :
+                {image ? <img style={{ maxHeight: '100%', maxWidth: '100%' }} src={image} alt="img" /> :
                   <img style={{ maxHeight: '100%', maxWidth: '100%', marginBottom: '20px' }} src={server_url + '/images/Avartar.jpg'} alt="img" />}
                 <input
                   className="form-control mb-3"
@@ -121,8 +86,8 @@ function Profile() {
           </form> :
           <div className="row mb-3">
             <div className="col-md-4">
-              {imgFile ? <img style={{ maxHeight: '100%', maxWidth: '100%' }} src={imgFile} alt="img" /> :
-                <img style={{ maxHeight: '100%', maxWidth: '100%', marginBottom: '20px' }} src={server_url + '/images/Avartar.jpg'} alt="img" />}
+              {image ? <img style={{ maxHeight: '100%', maxWidth: '100%' }} src={image} alt="img" /> :
+                <img style={{ maxHeight: '100%', maxWidth: '100%', marginBottom: '20px' }} src={Avatar} alt="img" />}
             </div>
             <div className="col-md-8">
               <h3>{name}</h3>

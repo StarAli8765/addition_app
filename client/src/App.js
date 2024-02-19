@@ -14,7 +14,7 @@ function App() {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container" style={{ justifyContent: 'flex-start' }}>
           <div>
-            <a className="navbar-brand" href="/">
+            <a className="navbar-brand" style={{color: "blue"}} href="/">
               <img style={{ height: '60px', width: '60px' }} src={Logo} />
               Addition App
             </a>
